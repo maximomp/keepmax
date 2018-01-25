@@ -1,0 +1,13 @@
+/dist
+/node_modules
+/src/app/config.local.js
+/umzug.json
+\#*\#
+*~
+.\#*
+*.swp
+*.swo
+.~lock.*
+tags
+/.nyc_output
+/coverage
