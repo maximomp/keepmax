@@ -16,7 +16,13 @@ const Query = new g.GraphQLObjectType({
     notes: {
       type: new g.GraphQLList(Note),
       resolve(src, params) {
-        return [];
+        return [
+          {
+            id: 1,
+            title: "titulo",
+            content: "contenido",
+          }
+        ];
       }
     }
   })
