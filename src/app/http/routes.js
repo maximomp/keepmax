@@ -1,13 +1,24 @@
+const gql = require("../graphql");
 
-function handleRoot(ctx) {
-  ctx.body = "Hello world from router";
+function handleGraphiql(ctx) {
+  const query = ctx.query.query;
+  const props = ctx.query.variables;
+
+  ctx.body = gql.dumpGraphiQL({
+    endpoint: "/api/graphql",
+    query: query,
+    variables: props
+  });
 }
 
-function handleSaludador(ctx) {
-  ctx.body = `Hola ${ctx.params.name}`;
+async function handleGraphql(ctx) {
+  const query = ctx.data.query || "";
+  const props = ctx.data.variables || {};
+
+  ctx.body = await gql.exec(query, props);
 }
 
 exports.setup = function(router) {
-  router.get("/", handleRoot);
-  router.get("/saluda/:name", handleSaludador);
+  router.post("/api/graphql", handleGraphql);
+  router.get("/debug/graphiql", handleGraphiql);
 };
